@@ -35,6 +35,8 @@ public class DoublyLinkedList<T> {
             firstNode.setnextNode(null);
 
         if(firstNode.equals(null)){
+            firstNode.setnextNode(newNode);
+            lastNode.setpreviousNode(newNode);
         }
 
     }
