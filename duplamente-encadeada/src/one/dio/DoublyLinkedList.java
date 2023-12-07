@@ -18,12 +18,12 @@ public class DoublyLinkedList<T> {
     }
 
     private DoublyLinkedNode<T> getNode(int index){
-        DoublyLinkedNode<T> auxNode = firstNode;
+        DoublyLinkedNode<T> auxNode8 = firstNode;
 
-        for(int i = 0; (i<index) && auxNode!= null; i++){
-            auxNode= auxNode.getnextNode();
+        for(int i = 0; (i<index) && auxNode8!= null; i++){
+            auxNode8= auxNode8.getnextNode();
         }
-        return auxNode;
+        return auxNode8;
     }
 
     public T get(int index){
@@ -31,28 +31,31 @@ public class DoublyLinkedList<T> {
     }
      
     public void add(T element){
-        DoublyLinkedNode<T> newNode = new DoublyLinkedNode<>(element);
+        DoublyLinkedNode<T> newNode = new DoublyLinkedNode<T>(element);
+        newNode.setContent(element);
         newNode.setnextNode(null);
         newNode.setpreviousNode(lastNode);
         if(firstNode == null){
-            firstNode=newNode;
-        if(lastNode != null)
+            firstNode=newNode;}
+        if(lastNode != null){
             lastNode.setnextNode(newNode);
         }
             lastNode = newNode;
             listSize++;
     }
 
-        public void add(int index, T element){
+        public void addIndex(int index, T element){
 
-            DoublyLinkedNode<T> newNode = new DoublyLinkedNode<>(element);
-            DoublyLinkedNode<T> auxNode = getNode(index);
-            newNode.setnextNode(auxNode);
+            DoublyLinkedNode<T> newNode = new DoublyLinkedNode<T>(element);
+            newNode.setContent(element);
+            DoublyLinkedNode<T> auxNode7 = getNode(index);
+            newNode.setnextNode(auxNode7);
                
             if (newNode.getnextNode()!= null){
-                newNode.setpreviousNode(auxNode.getpreviousNode());
+                newNode.setpreviousNode(auxNode7.getpreviousNode());
                 newNode.getnextNode().setpreviousNode(newNode);
             }else{
+                newNode.setpreviousNode(lastNode);
                 lastNode = newNode;
             }            
             if(index == 0){
@@ -71,15 +74,27 @@ public class DoublyLinkedList<T> {
                     firstNode.setpreviousNode(null);
                 }
             }else{
-                DoublyLinkedNode<T> auxNode = getNode(index);
-                auxNode.getpreviousNode().setnextNode(auxNode.getnextNode());
-                if(auxNode != lastNode){
-                auxNode.getnextNode().setpreviousNode(auxNode.getpreviousNode());
+                DoublyLinkedNode<T> auxNode2 = getNode(index);
+                auxNode2.getpreviousNode().setnextNode(auxNode2.getnextNode());
+                if(auxNode2 != lastNode){
+                auxNode2.getnextNode().setpreviousNode(auxNode2.getpreviousNode());
                 }else{
-                    auxNode = lastNode;
+                    auxNode2 = lastNode;
                 }
             }
             listSize--;
+        }
+        
+        @Override
+        public String toString(){
+                String strRetorno = "";
+                DoublyLinkedNode<T> auxNode3 = firstNode;
+                for(int i = 0; i < size(); i++){
+                    strRetorno += "[No{conteudo=" +auxNode3.getContent() +"}]--->";
+                   auxNode3 =auxNode3.getnextNode();
+                }
+                strRetorno += "null";
+                return strRetorno;
         }
 
 }
